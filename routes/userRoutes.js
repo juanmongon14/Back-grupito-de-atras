@@ -2,17 +2,20 @@ const express = require("express");
 
 const router = express.Router();
 
-//importar el userController
-const userController = require("../controllers/userController");
+//importar el controlador para usuarios regulares
+const userController = require("../controller/userController");
+const authUserController = require ("../controller/authUserController");
 
 router.get('/', userController.getAllUsers);
 
-router.post('/', userController.createUser);
+router.post('/create', userController.createUser);
 
-router.put('/:id', userController.updateUser);
+router.put('/update/:id', userController.updateUser);
 
-router.delete('/:id', userController.deleteUser);
+router.delete('/delete/:id', userController.deleteUser);
 
-router.post('/login', authController.authenticateUser);
+router.post('/login', authUserController.authenticateUser);
+
+router.get('/:email', userController.getOneUser);
 
 module.exports = router;
