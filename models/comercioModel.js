@@ -9,13 +9,13 @@ mongoose.connect(Uri, {
 .then(() => console.log("Se conecto con base de datos"))
 .catch(err => console.log("Error de conexion con la base de datos", err));
 
-const userSchema = new mongoose.Schema({
+const comercioSchema = new mongoose.Schema({
 
     name: {type:String, required:true},
-    email: {type:String, required:true},
+    nameEmpresa: {type:String, required:true},
     phone: {type:String, required:true},
-    documentId: {type:String,required:true},
+    nit: {type:String,required:true},
     password: {type:String, required:true}
-}, {collection: 'usuarios'});
+}, {collection: 'comercios'});
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Comercio', comercioSchema);

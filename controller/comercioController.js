@@ -1,44 +1,29 @@
-const userModel = require("../models/userModel");
+const comercioModel = require("../models/comercioModel");
 const bcrypt = require("bcryptjs");
 
 exports.getAllUsers = (req, res) => {
-    userModel.find()
+    comercioModel.find()
     .then(users => res.json(users))
     .catch(err => res.status(500).json({error:err.message}));
 };
 
-// exports.createUser =  (req, res) => {
-//     const {name, email,password} = req.body;
-//     const newUser = new userModel({
-//         name,
-//         email,
-//         phone,
-//         documentId,
-//         password
-//     });
-
-//     newUser.save()
-//     .then(() => res.status(201).json({success:"created"}))
-//     .catch(err => res.status(500).json({error:err.message}));
-// }
-
 exports.createUser =  (req, res) => {
-    const {name, email,phone, documentId, password} = req.body;
+    const {name, nameEmpresa , phone, nit, password} = req.body;
     const saltRounds = 10;
     bcrypt.hash(password, saltRounds, function(err, hash){
         if(err){
             res.status(500).json({error:err.message});
         }
         else{
-            const newUser = new userModel({
+            const newComercioUser = new comercioModel({
                 name,
-                email,
+                nameEmpresa,
                 phone,
-                documentId,
+                nit,
                 password:hash
             });
 
-            newUser
+            newComercioUser
             .save()
             .then(() => res.status(201).json({success:"created"}))
             .catch(err => res.status(500).json({error:err.message}));
@@ -46,20 +31,9 @@ exports.createUser =  (req, res) => {
     });
 }
 
-// exports.updateUser = (req, res) => {
-//     const {id}= req.params;
-//     const { name, email, phone, documentId, password } = req.body;
-//     userModel.findByIdAndUpdate( id , { name, email, phone, documentId, password }, {new:true})
-//     .then(user => {
-//         if(!user)throw new Error(`user with ID ${id} not found`);
-//         res.status(200).json({user});
-//     })
-//     .catch(err => res.status(404).json({error:err.message}));
-// }
-
 exports.updateUser = (req, res) => {
     const {id}= req.params;
-    const {name, email,phone,documentId,password} = req.body;
+    const {name,nameEmpresa,phone,nit,password} = req.body;
     const saltRounds = 10;
 
     bcrypt.hash(password, saltRounds, function(err, hash){
@@ -67,7 +41,7 @@ exports.updateUser = (req, res) => {
             res.status(500).json({error:err.message});
         }
         else {
-            userModel.findByIdAndUpdate( id , { name, email, phone, documentId, password:hash } , {new:true})
+            comercioModel.findByIdAndUpdate( id , { name, nameEmpresa, phone, nit, password:hash } , {new:true})
             .then(user => {
                 if(!user)throw new Error(`user with ID ${id} not found`);
                 res.status(200).json({user});
@@ -79,7 +53,7 @@ exports.updateUser = (req, res) => {
 
 exports.deleteUser = (req, res) => {
     const {id}= req.params;
-    userModel.findByIdAndDelete(id)
+    comercioModel.findByIdAndDelete(id)
     .then(user => {
         if(!user)throw new Error(`user with ID ${id} not found`);
         res.status(200).json({message:"User deleted"});
@@ -88,8 +62,8 @@ exports.deleteUser = (req, res) => {
 }
 
 exports.getOneUser = (req, res) => {
-    const {email}= req.params;
-    userModel.findOne({email})
+    const {nit}= req.params;
+    userModel.findOne({nit})
     .then(user => res.json(user))
     .catch(err => res.status(404).json({error:err.message}));
 }
