@@ -8,11 +8,11 @@ const authComercioController = require ("../controller/authComercioController");
 
 router.get('/', comercioController.getAllUsers);
 
-router.post('/', comercioController.createUser);
+router.post('/create', comercioController.createUser);
 
-router.put('/:id', comercioController.updateUser);
+router.put('/update/:id', comercioController.updateUser);
 
-router.delete('/:id', comercioController.deleteUser);
+router.delete('/delete/:id', comercioController.deleteUser);
 
 router.post('/login', authComercioController.authenticateUser);
 

@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const comercioModel = require("../models/comercioModel");
 const jwt = require ("jsonwebtoken");
 
-const comercioModel = require("../models/comercioModel");
 exports.authenticateUser = (req, res) => {
   const {email,password} = req.body;
   comercioModel
