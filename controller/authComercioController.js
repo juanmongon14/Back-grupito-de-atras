@@ -3,9 +3,9 @@ const comercioModel = require("../models/comercioModel");
 const jwt = require ("jsonwebtoken");
 
 exports.authenticateUser = (req, res) => {
-  const {email,password} = req.body;
+  const {nit,password} = req.body;
   comercioModel
-  .findOne({email})
+  .findOne({nit})
   .then((user) => {
     if (!user) {
         // si no se encuentra el usuario, se devuelve un mensaje de error.
