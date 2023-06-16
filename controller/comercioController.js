@@ -63,7 +63,7 @@ exports.deleteUser = (req, res) => {
 
 exports.getOneUser = (req, res) => {
     const {nit}= req.params;
-    userModel.findOne({nit})
+    comercioModel.findOne({nit})
     .then(user => res.json(user))
     .catch(err => res.status(404).json({error:err.message}));
 }

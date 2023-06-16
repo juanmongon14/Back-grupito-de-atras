@@ -6,6 +6,8 @@ const router = express.Router();
 const comercioController = require("../controller/comercioController");
 const authComercioController = require ("../controller/authComercioController");
 
+// const {verifyTokenComercio} = require("../middleware/verifyTokenComercio");
+
 router.get('/', comercioController.getAllUsers);
 
 router.post('/create', comercioController.createUser);
